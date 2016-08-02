@@ -3,6 +3,8 @@ import { expect } from 'chai';
 import React from 'react';
 import Cart from '../../app/scripts/components/Cart';
 
+import store from '../../app/scripts/store';
+
 describe('<Cart/> component', function() {
   let cart = shallow(<Cart />);
   it('should render a div to the DOM', () => {
@@ -18,7 +20,7 @@ describe('<Cart/> component', function() {
   it('should have a ul', () => {
     expect(cart.find('ul')).to.have.length(1);
   });
-  it('should have 4 li\'s', () => {
-    expect(cart.find('ul').children()).to.have.length(4);
+  it('should have correct number li\'s (length of items array in store.cartModel))', () => {
+    expect(cart.find('ul').children()).to.have.length(store.cartModel.get('items').length);
   });
 });

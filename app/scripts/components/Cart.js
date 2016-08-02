@@ -9,15 +9,15 @@ const Cart = React.createClass({
     return store.cartModel;
   },
   componentDidMount: function() {
-    store.cartModel.on('change remove add', () => {
+    store.cartModel.on('change update', () => {
+      console.log(store.cartModel.changedAttributes());
       this.setState(store.cartModel);
     });
   },
   render: function() {
-    console.log(this.state);
     let itemsArr = this.state.get('items');
     let items = itemsArr.map((item, i) => {
-      return <CartItem key={i} item={item.item} cost={item.cost}/>;
+      return <CartItem key={i} id={item.id} item={item.item} cost={item.cost}/>;
     });
     return (
       <div>
@@ -25,6 +25,7 @@ const Cart = React.createClass({
         <ul id="cart-item-list">
           {items}
         </ul>
+        <span>{store.cartModel.get('total')}</span>
       </div>
     );
   }

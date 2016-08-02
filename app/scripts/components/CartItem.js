@@ -1,10 +1,15 @@
 import React from 'react';
 
+import store from '../store';
+
 const CartItem = React.createClass({
+  removeItem: function() {
+    store.cartModel.removeItem(this.props.id);
+  },
   render: function() {
     console.log(this.props);
     return (
-      <li>{this.props.item}...${this.props.cost}</li>
+      <li id={this.props.id} onClick={this.removeItem}>{this.props.item}...${this.props.cost}</li>
     );
   }
 });
